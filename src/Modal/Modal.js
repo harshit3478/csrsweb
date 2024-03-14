@@ -1,8 +1,9 @@
 import map from "../images/map.png";
+import audio from '../App'
 const Modal = ({ data, setIsModal }) => {
   async function handleRespond() {
     console.log("responding to the alert");
-
+    audio.pause();
     const token = data.user.userId;
     var response = await fetch(`${process.env.REACT_APP_API_URL}/send/notification`, {
       method: "POST",

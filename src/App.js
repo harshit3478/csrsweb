@@ -9,7 +9,8 @@ import Login from "./login/login";
 import EmergencyCard2 from "./List/Emergencycard";
 import Case from "./Case/case";
 const socket = io(`${process.env.REACT_APP_API_URL}`);
-
+var audio = new Audio('/audio/alert.mp3');
+module.exports = audio;
 function App() {
   const [ isModal , setIsModal ] = React.useState(false);
   const [data , setData ] = React.useState([]);
@@ -17,7 +18,9 @@ function App() {
     socket.on('emergency-created', (data) => {
       
       console.log('emergency created data is :' , data);
+
       setIsModal(true);
+      audio.play();
       localStorage.removeItem('emergenciesData');
       setData(data);
     });
