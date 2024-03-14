@@ -53,21 +53,21 @@ const Case = () => {
                         <div className='student-image'>
                             <img src={emergencyData.user.imageUrl} alt="profile" className="w-40 rounded-full" />
                         </div>
-                        <div className='student-info'>
-                            <p className='m-1 p-2 font-semibold '><PermIdentity />   {emergencyData.user.username}</p>
-                            <p className='m-1 p-2 font-semibold '><Badge />   {emergencyData.user.rollNo}</p>
-                            <p className=' capitalize m-1 p-2 font-semibold '><Email />  {emergencyData.user.email}</p>
-                            <p className='m-1 p-2 font-semibold '><Phone />   {emergencyData.user.phone}</p>
+                        <div className='student-info text-md' style={{minWidth:'25%'}}>
+                            <p className='p-1.5 font-semibold '><PermIdentity />   {emergencyData.user.username}</p>
+                            <p className='p-1.5 font-semibold '><Badge />   {emergencyData.user.rollNo}</p>
+                            <p className=' capitalize m-1 font-semibold '><Email />  {emergencyData.user.email}</p>
+                            <p className='p-1.5 font-semibold '><Phone />   {emergencyData.user.phone}</p>
                         </div>
-                        <div className='student-contacts min-h-full justify-start flex flex-col items-start'>
+                        <div className='student-contacts min-h-full justify-start flex flex-col items-start' style={{minWidth:'24%'}}>
                             <h1 className='text-2xl text-center font-bold'>Emergency Contacts</h1>
                             {emergencyData.user.contacts.map((contact) => {
                                 return (
-                                    <div className='emergency-contacts flex items-center gap-2'>
-                                        <div className='m-2'>
+                                    <div className='emergency-contacts text-md flex items-center  gap-1 w-full'>
+                                        <div className='m-0.5'>
                                             <ContactEmergency className='text-3xl' fontSize='large' />
                                         </div>
-                                        <div className='m-2 p-2'>
+                                        <div className='m-0.5 p-2'>
                                             <p><PermIdentity />  {contact.contactName}</p>
                                             <p><Phone />  {contact.contactPhone}</p>
                                         </div>
