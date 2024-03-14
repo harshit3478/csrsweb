@@ -30,9 +30,9 @@ const Modal = ({ data, setIsModal }) => {
   return (
     <>
       {data === null || data.length === 0 ? (
-        <h1 className="text-3xl font-bold text-center">
-          Something went wrong...
-        </h1>
+        <div className='w-full h-full justify-center items-center flex'>
+        <h1 className='text-3xl font-bold text-center '>Loading....</h1> 
+    </div>
       ) : (
         <div
           className={`${

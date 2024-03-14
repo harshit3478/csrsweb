@@ -44,7 +44,9 @@ const Case = () => {
     return (
         <>
             {emergencyData === null || emergencyData.length === 0 ?
-                <h1 className='text-3xl font-bold text-center'>Something went wrong...</h1> :
+            <div className='w-full h-full justify-center items-center flex'>
+                <h1 className='text-3xl font-bold text-center '>Loading....</h1> 
+            </div>:
                 <div className='flex gap-5  p-5 absolute right-0 flex-col items-center bg-slate-00 '>
                     <h1 className='text-3xl  text-center font-extrabold'>Case Details</h1>
                     <div className='student-details bg-slate-100 flex items-center gap-5 justify-center text-xl mx-10 p-5 shadow-sm shadow-slate-200 rounded-sm relative' style={{ left: '2vw', width: '80vw' }}>
@@ -97,7 +99,7 @@ const Case = () => {
 
                 </div>
             }
-            <Modal data={emergencyData} />
+         
         </>
     )
 }
