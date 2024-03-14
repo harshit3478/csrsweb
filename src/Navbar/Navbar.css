@@ -1,0 +1,52 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #9fe2f7;
+  padding-top: 20px;
+}
+
+.upper-bar {
+  flex-grow: 1;
+  margin-top: -10%;
+}
+
+.lower-bar {
+  margin-top: auto;
+  margin-bottom: 5%;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-left: 20%;
+}
+
+.sidebar ul li .icon {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.sidebar ul li a {
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+  align-self: center;
+}
