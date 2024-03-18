@@ -4,9 +4,14 @@ import { Badge, ContactEmergency, Done, Email, EmailRounded, PendingActions, Per
 
 import React, { useEffect, useState } from 'react'
 import Modal from '../Modal/Modal';
+import InputModal from '../Modal/InputModal';
 // import Modal from '../Modal/Modal';
 
 const Case = () => {
+    const [isModal, setIsModal] = useState(false);
+    function handleClick(){
+        setIsModal(true); 
+       }
     // get id from url
     const id = window.location.pathname.split('/')[2];
     console.log('id is ', id);
@@ -51,7 +56,7 @@ const Case = () => {
                     <h1 className='text-3xl  text-center font-extrabold'>Case Details</h1>
                     <div className='student-details bg-slate-100 flex items-center gap-5 justify-center text-xl mx-10 p-5 shadow-sm shadow-slate-200 rounded-sm relative' style={{ left: '2vw', width: '80vw' }}>
                         <div className='student-image'>
-                            <img src={emergencyData.user.imageUrl} alt="profile" className="w-40 rounded-full" />
+                            <img src={emergencyData.user.imageUrl} alt="profile" className="w-40 rounded" />
                         </div>
                         <div className='student-info text-md' style={{minWidth:'25%'}}>
                             <p className='p-1.5 font-semibold '><PermIdentity />   {emergencyData.user.username}</p>
@@ -89,14 +94,17 @@ const Case = () => {
                             <p className='font-semibold text-lg'>Sensitivity :</p>
                             <p className='text-lg font-light py-2 m-1'>{emergencyData.sensitivity} </p>
                         </div>
-                        <div className='flex justify-start items-center gap-4'>
-                            <p className='font-semibold text-lg'>Description :</p>
-                            <p className='text-lg font-light py-2 m-1'>{emergencyData.description} </p>
+                        <div className='flex justify-start items-start gap-4 my-2'>
+                            <p className='font-semibold text-lg '>Description:</p>
+                            <p className='text-lg font-light '>{emergencyData.description} </p>
                         </div>
 
                     </div>
 
-
+                    { emergencyData.status === 'pending' ? <div className="matter-resolved">
+                    <button onClick={handleClick} style={{ background: 'lightgreen' }} className='text-white rounded-md p-2  text-xl font-bold m-4'>Matter Resolved</button>
+                  </div> : null }
+                  {isModal ? <InputModal id={emergencyData._id}  />  : null}
                 </div>
             }
          

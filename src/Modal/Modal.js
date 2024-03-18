@@ -53,7 +53,7 @@ const Modal = ({ data, setIsModal }) => {
                   <h2 className="text-3xl font-bold ">Emergency Alert</h2>
                   <button
                     onClick={() => setIsModal(false)}
-                    className=" bg-red-500 hover:bg-pink-500 text-white hover:text-gray-700 focus:outline-none absolute left-2"
+                    className=" bg-red-500 hidden hover:bg-pink-500 text-white hover:text-gray-700 focus:outline-none absolute left-2"
                   >
                     <svg
                       className="h-6 w-6"

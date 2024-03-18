@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './login.css';
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
     const [formData, setFormData] = useState({
         name: '',
         password: ''
@@ -56,6 +56,8 @@ const Login = () => {
                 .then(data => {
                     console.log(data.status);
                     if (data.status === 'ok') {
+                        setIsLoggedIn(true);
+
                         window.location.href = '/';
                     }
                     

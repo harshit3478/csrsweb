@@ -1,52 +1,70 @@
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import io from "socket.io-client";
 import Navbar from "./Navbar/Navbar";
-import React from "react";
 import Main from "./Main/Main";
 import Modal from "./Modal/Modal";
 import Alert from "./Alert/Alert";
-import io from "socket.io-client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./login/login";
-import EmergencyCard2 from "./List/Emergencycard";
 import Case from "./Case/case";
+
 const socket = io(`${process.env.REACT_APP_API_URL}`);
-var audio = new Audio('/audio/alert.mp3');
-// module.exports = audio;
+const audio = new Audio('/audio/alert.mp3');
+
 function App() {
-  const [ isModal , setIsModal ] = React.useState(false);
-  const [data , setData ] = React.useState([]);
-  function handleEmergency(){
-    socket.on('emergency-created', (data) => {
-      
-      console.log('emergency created data is :' , data);
-
-      setIsModal(true);
-      audio.play();
-      localStorage.removeItem('emergenciesData');
-      setData(data);
-    });
-
-
-    socket.on('emergency-resolved', (data) => {
-      console.log(data);
-    });
-
+  const [isModal, setIsModal] = useState(false);
+  const [data, setData] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login status
+  async function checkLoginStatus() {
+    try {
+      var response = await fetch(`${process.env.REACT_APP_API_URL}/get/admin`, {
+        method: "GET",
+      });
+      console.log(response);
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-  handleEmergency();
-  console.log('value of isModal is :', isModal);
+  useEffect(() => {
+    // Function to handle emergency socket events
+    function handleEmergency() {
+      socket.on('emergency-created', (data) => {
+        console.log('emergency created data is :', data);
+        setIsModal(true);
+        audio.play();
+        localStorage.removeItem('emergenciesData');
+        setData(data);
+      });
+      
+
+      socket.on('emergency-resolved', (data) => {
+        console.log(data);
+      });
+    }
+    handleEmergency(); 
+
+   
+  }, []); 
+
+  console.log('value of isModal is:', isModal);
+  console.log('value of login is:', isLoggedIn);
+
   return (
-    <div className="app-container ">
+    <div className="app-container">
       <BrowserRouter>
         <Routes>
+          {/* Default route is login */}
+          <Route
+            path="/login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} />} // Pass setIsLoggedIn to handle login
+          />
+          {/* Protected route for home screen, redirects to login if not logged in */}
           <Route
             path="/"
-            element={
-              <>
-                <Navbar />
-                <Main />
-                { isModal ? <Modal data={data} setIsModal={setIsModal} /> : null}
-                
-              </>
-            }
+            element={isLoggedIn ? <HomeScreen isModal={isModal} data={data} setIsModal={setIsModal} /> : <Navigate to="/login" />} 
           />
           <Route
             path="/alert/:id"
@@ -58,47 +76,33 @@ function App() {
             }
           />
           <Route
-            path="/login"
+            path="/test"
+            element={<Alert />}
+          />
+          <Route
+            path="/emergency/:id"
             element={
-              <>
-                <div
-                  className="bg-gradient-to-r from-indigo-500 to-sky-500 "
-                  style={{
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundImage: "url(./images/kgpimage.jpg)",
-                  }}
-                >
-                  <Login />
-                </div>
-              </>
+              <div className="flex justify-around">
+                <div><Case /></div>
+                <div><Navbar /></div>
+              </div>
             }
           />
           <Route path="*" element="404 Not Found" />
-          <Route
-            path="/test"
-            element={
-             <>
-            <Alert />
-             </>
-            }
-          />
-          <Route path="/emergency/:id" element={
-          <>
-         <div className="flex justify-around">
-           <div>
-           <Case />
-          </div>
-            <div>
-            <Navbar />
-            </div>
-          </div>
-          </> 
-        } />
         </Routes>
       </BrowserRouter>
-      
     </div>
+  );
+}
+
+// Home screen component
+function HomeScreen({ isModal, data, setIsModal }) {
+  return (
+    <>
+      <Navbar />
+      <Main />
+      {isModal && <Modal data={data} setIsModal={setIsModal} />}
+    </>
   );
 }
 

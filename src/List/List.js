@@ -15,12 +15,15 @@ export default function StickyHeadTable() {
   const getEmergenciesData = () => {
     if (localStorage.getItem("emergenciesData")) {
       setData(JSON.parse(localStorage.getItem("emergenciesData")));
+      console.log("data from localstorage", JSON.parse(localStorage.getItem("emergenciesData")));
     } else {
       fetch(`${process.env.REACT_APP_API_URL}/emergency/get`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           data = data.data;
+          // reverse the data
+          data.reverse();
           setData(data);
           // store data in localstorage
           localStorage.setItem("emergenciesData", JSON.stringify(data));
@@ -39,6 +42,8 @@ export default function StickyHeadTable() {
         return item.user.username.toLowerCase().includes(value.toLowerCase()) || item.user.rollNo.toLowerCase().includes(value.toLowerCase()) || item.landmark.toLowerCase().includes(value.toLowerCase()) || item.status.toLowerCase().includes(value.toLowerCase()) || item.user.email.toLowerCase().includes(value.toLowerCase());
       });
       console.log("filteredData", filteredData);
+      // reverse the data
+      // filteredData.reverse();
       setData(filteredData);
     }
   }
