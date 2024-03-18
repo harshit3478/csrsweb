@@ -4,26 +4,26 @@ const Modal = ({ data, setIsModal }) => {
   async function handleRespond() {
     console.log("responding to the alert");
     // audio.pause();
-    const token = data.user.userId;
-    var response = await fetch(`${process.env.REACT_APP_API_URL}/send/notification`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: "Help is on the way!!",
-        body: "Control room is on the way to help you",
-        langitude: data.longitude,
-        latitude: data.latitude,
-        token: token,
-      }),
-    });
-    response = await response.json();
-    console.log("response of sending notification is:", response.status);
-    if(response.status === 'ok'){
-      // alert('Notification sent successfully');
-      // setIsModal(false);
-    }
+    // const token = data.user.userId;
+    // var response = await fetch(`${process.env.REACT_APP_API_URL}/send/notification`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     title: "Help is on the way!!",
+    //     body: "Control room is on the way to help you",
+    //     langitude: data.longitude,
+    //     latitude: data.latitude,
+    //     token: token,
+    //   }),
+    // });
+    // response = await response.json();
+    // console.log("response of sending notification is:", response.status);
+    // if(response.status === 'ok'){
+    //   // alert('Notification sent successfully');
+    //   // setIsModal(false);
+    // }
     window.location.href = `/alert/${data._id}`;
   }
   // handleRespond();
