@@ -50,10 +50,18 @@ const EmergencyCard2 = ({ id, ImageUrl, Name, RollNo, Landmark, Status, Email, D
                     <div className='image' onClick={handleShowImage}>
                         <img src={ImageUrl} alt="profile" className="w-14 rounded-full" />
                     </div>
-                    <div className='user-details mx-2'>
+                    <div className='user-details mx-2 max-w-80 '>
                         <span className='text-md font-sans  m-1 p-2'>{Name}</span>
                         <span className='text-md font-sans  m-1 p-2'>{RollNo}</span>
-                        <p className='text-md font-sans capitalize  p-2'><EmailOutlined /> {Email}</p>
+                        <p className='text-md font-sans capitalize flex p-2'>
+                            <span>
+                                <EmailOutlined />
+                                </span>
+                                <span>
+    
+                             {Email}
+                            </span>
+                             </p>
                     </div>
 
                 </div>

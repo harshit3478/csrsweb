@@ -21,7 +21,7 @@ const Modal = ({ data, setIsModal }) => {
     response = await response.json();
     console.log("response of sending notification is:", response.status);
     if(response.status === 'ok'){
-      alert('Notification sent successfully');
+      // alert('Notification sent successfully');
       // setIsModal(false);
     }
     window.location.href = `/alert/${data._id}`;
