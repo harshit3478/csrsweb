@@ -7,6 +7,7 @@ import contactIcon from "../images/search.png";
 import settingsIcon from "../images/settings.png";
 import logoutIcon from "../images/LOGOUT.png";
 import "./Navbar.css";
+import { LogoutOutlined } from "@mui/icons-material";
 
 function Navbar() {
   return (
@@ -41,10 +42,18 @@ function Navbar() {
       <div className="lower-bar">
         <ul>
           <li>
-            <a href="/">
-              <img src={settingsIcon} alt="Settings" className="icon" />
-              Settings
-            </a>
+            <button onClick={()=>{
+              localStorage.removeItem('isLoggedIn');
+              localStorage.removeItem('currentUser');
+              localStorage.removeItem('token');
+              window.location.href = '/login';
+              console.log('logged out');
+              alert('logged out'); 
+
+            }}>
+              <LogoutOutlined />
+              Logout
+            </button>
           </li>
           {/* <li>
             <a href="/">

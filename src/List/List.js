@@ -6,27 +6,44 @@ import EmergencyCard2 from "./Emergencycard";
 export default function StickyHeadTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage] = useState(3);
-
+  const [isData, setIsData] = useState(false);
   const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
   const [data, setData] = useState([]);
-  const getEmergenciesData = () => {
+  async function getEmergenciesData (){
     if (localStorage.getItem("emergenciesData")) {
-      setData(JSON.parse(localStorage.getItem("emergenciesData")));
-      console.log("data from localstorage", JSON.parse(localStorage.getItem("emergenciesData")));
+        var cases = JSON.parse(localStorage.getItem("emergenciesData"));
+        cases = cases.reverse();
+        cases.map((item) => {
+          const date = new Date(item.createdOn);
+          const indianTime = date.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+          item.createdOn = indianTime;
+          console.log("item", item.createdOn);
+          return item; // Add return statement here
+        });
+      setData(cases);
+      console.log("data from localstorage in list.js", JSON.parse(localStorage.getItem("emergenciesData")));
     } else {
       fetch(`${process.env.REACT_APP_API_URL}/emergency/get`)
         .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          data = data.data;
+        .then((cases) => {
+          console.log(cases);
+          cases = cases.data;
           // reverse the data
-          data.reverse();
-          setData(data);
+           cases = cases.reverse();
+          cases.map((item) => {
+             const date = new Date(item.createdOn);
+             const indianTime = date.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+             item.createdOn = indianTime;
+             console.log("item", item.createdOn);
+             return item; // Add return statement here
+           });
+
+           localStorage.setItem("emergenciesData", JSON.stringify(cases));
+           setData(cases);
           // store data in localstorage
-          localStorage.setItem("emergenciesData", JSON.stringify(data));
         });
     }
   };
@@ -44,6 +61,12 @@ export default function StickyHeadTable() {
       console.log("filteredData", filteredData);
       // reverse the data
       // filteredData.reverse();
+      if(filteredData.length === 0 ) {
+        setIsData(true);
+      }
+      else {
+        setIsData(false);
+      }
       setData(filteredData);
     }
   }
@@ -71,6 +94,12 @@ export default function StickyHeadTable() {
           return item.status.toLowerCase().includes(valueString.toLowerCase());
         });
         console.log("filteredData", filteredData);
+        if(filteredData.length === 0 ) {
+          setIsData(true);
+        }
+        else {
+          setIsData(false);
+        }
         setData(filteredData);
       }
       else{
@@ -82,9 +111,15 @@ export default function StickyHeadTable() {
     if (value !== "" || value !== null || value !== undefined || value !== " ") {
       const allData = JSON.parse(localStorage.getItem("emergenciesData"));
       const filteredData = allData.filter((item) => {
-        return item.createdOn.split("T")[0].includes(value);
+        return item.createdOn.includes(value);
       });
       console.log("filteredData", filteredData);
+      if(filteredData.length === 0 ) {
+        setIsData(true);
+      }
+      else {
+        setIsData(false);
+      }
       setData(filteredData);
     }
   }
@@ -127,7 +162,11 @@ export default function StickyHeadTable() {
           </tr>
         </thead>
         <tbody> */}
-        {data
+        {isData ? 
+          <div className="flex justify-center items-center h-96">
+            <h1 className="text-2xl font-bold text-balance">No Data Found</h1>
+          </div>
+         : data
           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           .map((data, index) => {
             return (
@@ -140,8 +179,8 @@ export default function StickyHeadTable() {
                 Status={data.status}
                 Landmark={data.landmark}
                 Email={data.user.email}
-                Date={data.createdOn.split("T")[0]}
-                Time={data.createdOn.split("T")[1].split(".")[0]}
+                Date={data.createdOn.split(',')[0]}
+                Time={data.createdOn.split(',')[1]}
                 TimeTaken={data.timeTakenToResolve}
               />
             );

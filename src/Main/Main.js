@@ -100,14 +100,15 @@ function Main() {
       <div className="topbar">
         <h2>Dashboard</h2>
         <ul>
-          <li>
+          {/* <li>
             <a href="/">
               <img src={servicesIcon} alt="Notifications" className="icon" />
             </a>
-          </li>
+          </li> */}
           <li>
+            <p className="font-semibold text-lg m-2 capitalize">{localStorage.getItem('currentUser')}</p>
             <a href="/">
-              <img src={aboutIcon} alt="Profile" className="icon" />
+              <img src={aboutIcon} alt="Profile" className="" width={50}  style={{margin:'0.5rem 0 '}}/>
             </a>
           </li>
         </ul>

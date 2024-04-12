@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './login.css';
-const Login = ({setIsLoggedIn}) => {
+const Login = () => {
     const [formData, setFormData] = useState({
         name: '',
         password: ''
@@ -56,9 +56,9 @@ const Login = ({setIsLoggedIn}) => {
                 .then(data => {
                     console.log(data.status);
                     if (data.status === 'ok') {
-                        setIsLoggedIn(true);
-
-                        window.location.href = '/';
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('isLoggedIn', true);
+                        window.location.href = '/';  
                     }
                     
                     alert(data.message);
@@ -71,26 +71,26 @@ const Login = ({setIsLoggedIn}) => {
 
     return (
         <>
-        <div className='login container flex justify-center flex-col items-center login' style={{height:'100vh'}}>
-            <form className='w-2/5 m-10 rounded-md py-5 shadow-md shadow-slate-600 flex-col opacity-100 bg-slate-100 justify-center flex' method='post' action='/login' style={{ width: '27%' }} onSubmit={onFormData}>
+        <div className='login container flex justify-center flex-col items-center login ' style={{height:'100vh'}}>
+            <form className='w-2/5 m-10 rounded-md py-5 shadow-md shadow-slate-600  bg-blend-lighten flex-col  justify-center flex text-white' method='post' action='/login' style={{ width: '27%', background:'rgba(10,10,30,0.5)'}} onSubmit={onFormData}>
                 <h1 className=' text-2xl place-content-center text-center font-bold m-3'>Login</h1>
-                <div className='  border-b border-slate-700 '></div>
+                <div className='  border-b border-slate-100 '></div>
                 <div className='p-4  pb-0 m-0'>
                     <div className='Name m-2 flex justify-start flex-col p-1'>
-                        <input type='text' id='name' placeholder='Enter Name' className={`outline-none w-full p-2 my-2 rounded-sm border-b-2 ${errors.name ? 'border-red-500' : 'border-slate-500'}`} onChange={handleChange} />
+                        <input type='text' id='name' placeholder='Enter Name' className={`outline-none border-slate-200 bg-transparent placeholder:text-white w-full p-2 my-2 rounded-sm border-b-2 ${errors.name ? 'border-red-500' : 'border-slate-500'}`} onChange={handleChange} />
                         {errors.name && <p className="text-red-500">{errors.name}</p>}
                     </div>
                     <div className='password m-2 flex justify-self-start flex-col p-1 relative  items-start'>
                         <div className='password flex justify-between items-center w-full p-1'>
-                            <input type={showPassword ? 'text' : 'password'} id='password' placeholder='Enter Password' className={`outline-none w-full p-2 my-2 rounded-sm border-b-2 ${errors.password ? 'border-red-500' : 'border-slate-500'}`} onChange={handleChange} />
+                            <input type={showPassword ? 'text' : 'password'} id='password' placeholder='Enter Password' className={`outline-none w-full p-2 my-2 rounded-sm border-b-2 border-slate-200 bg-transparent placeholder:text-white ${errors.password ? 'border-red-500' : 'border-slate-500'}`} onChange={handleChange} />
                             <button type="button" className=" bg-blend-normal" onClick={toggleShowPassword}>
                                 {showPassword ? <VisibilityOff color='' /> : <Visibility />}
                             </button>
                         </div>
                         {errors.password && <p className="text-red-500">{errors.password}</p>}
-                        <a href='/login' className='text-left text-slate-400 font-serif my-3 hover:text-slate-400  hover:underline' >Forgot Password?</a>
+                        <a href='/login' className='text-left text-slate-50 font-serif my-3 hover:text-slate-200  hover:underline' >Forgot Password?</a>
                     </div>
-                    <button type='submit' className=' rounded-full my-4 m-1 p-2  font-semibold text-lg w-full outline-2 outline-black hover:bg-slate-200 focus:outline outline' >Login</button>
+                    <button type='submit' className=' rounded-full my-4 m-1 p-2  font-semibold text-lg w-full outline-2 outline-black hover:bg-slate-500 focus:outline outline' >Login</button>
                 </div>
                 <div className='text-center m-0 p-0'>
                     Not a member? <a href='/signup' className='text-sky-400 hover:text-slate-500 hover:underline'>Sign Up</a>

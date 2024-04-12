@@ -51,24 +51,7 @@ const Modal = ({ data, setIsModal }) => {
               <div className="px-4 py-2">
                 <div className="flex justify-between items-center flex-col">
                   <h2 className="text-3xl font-bold ">Emergency Alert</h2>
-                  <button
-                    onClick={() => setIsModal(false)}
-                    className=" bg-red-500 hidden hover:bg-pink-500 text-white hover:text-gray-700 focus:outline-none absolute left-2"
-                  >
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      ></path>
-                    </svg>
-                  </button>
+                
 
                   <div className=" flex gap-2 justify-start w-full p-4 pb-0">
                     <div className="profile-details flex gap-4 justify-center items-center ">
