@@ -58,7 +58,7 @@ function Alert() {
   return (
     <>
       {alertData === null || alertData.length === 0 ?
-        <h1 className='text-3xl font-bold text-center'>Something went wrong...</h1> :
+        <h1 className='text-3xl font-bold text-center'>loading...</h1> :
 
         <div className="alert bg-slate-200 h-screen m-2">
           <div className="upper-section items-center gap-0">

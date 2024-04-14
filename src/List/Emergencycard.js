@@ -45,7 +45,7 @@ const EmergencyCard2 = ({ id, ImageUrl, Name, RollNo, Landmark, Status, Email, D
     return (
         <>
 
-            <div className="bg-slate-100 rounded-lg p-2 px-10 flex h-min  justify-between border my-1.5 mx-1 border-black">
+            <div onClick={() => handleClick(id)} className="bg-slate-100 cursor-pointer hover:bg-slate-300 rounded-lg p-3 flex h-min  justify-between border my-1.5 mx-1 border-black">
                 <div className='flex justify-items-end items-center'>
 
                     <div className='user flex items-center'>
@@ -60,14 +60,14 @@ const EmergencyCard2 = ({ id, ImageUrl, Name, RollNo, Landmark, Status, Email, D
                                     <EmailOutlined />
                                 </span>
                                 <span>
-                                    {Email}
+                                    {Email} 
                                 </span>
                             </p>
                         </div>
 
                     </div>
                     <div className='status text-md'>
-                        <span className={` capitalize ${Status === 'resolved' ? 'text-green-400' : 'text-red-500'}  font-bold mx-4 my-2 p-2`}>{Status === 'pending' ? < PendingActions /> : <Done />}{Status} </span>
+                        <span className={` capitalize ${Status === 'resolved' ? 'text-green-400' : 'text-red-500'}  font-bold -2 my-2 p-2`}>{Status === 'pending' ? < PendingActions /> : <Done />}{Status} </span>
                     </div>
                     <div className='emergency-details flex-col flex'>
                         <span className='text-md font-sans  m-0.5'>< PinDrop /> {Landmark}</span>
